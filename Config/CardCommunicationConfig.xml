@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<ConfigurationToSelect>Iso7816PCSC</ConfigurationToSelect>
+	<Iso7816PCSC>
+		<Reader>Identiv uTrust 4701 F CL Reader 0</Reader>
+		<Protocol>T1</Protocol>
+		<SharedMode>1</SharedMode>
+		<HandleExtendedLength>false</HandleExtendedLength>
+	</Iso7816PCSC>
+</configuration>
