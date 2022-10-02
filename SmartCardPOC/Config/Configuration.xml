@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <Common>
+   <AppletPackageAID>D276000004150200000F0000</AppletPackageAID>	
+   <AesCottKeyValue>373F5060409BA014B69A627622F23B59</AesCottKeyValue>
+   <EccKeyValue>4F178A80AD419162442A6E2C6A4608E7443012499A31AA25B4020705CA29FA4F</EccKeyValue>
+<EccPublicKeyValue>04F3B6DBCFF6C9FDAB927DC4DC63C461BF725D3DCE6A2ECE8930E9EAC8C1B976C6C4E78C1750AB870B3D1B82214DAF0861A30AA7ACA4C865225313B1BA96314BE6</EccPublicKeyValue>
+<AppletClassAID>D276000004150200000F000001</AppletClassAID>
+<AppletInstanceAID>D2760000850101</AppletInstanceAID>
+<AppletCapFilePath>../../../../release/Applet/V_0.0.05/cap/release_embedded</AppletCapFilePath>
+<DataSetPath>../DataSet/Nfc</DataSetPath>
+<AppletVersion>00000005</AppletVersion>
+<ApplicationState>Perso</ApplicationState>  <!-- Perso or Operational -->
+<IsGetDataVersionCheckReq>false</IsGetDataVersionCheckReq>
+</Common>
+</configuration>
