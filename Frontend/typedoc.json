@@ -1,0 +1,7 @@
+{
+  "name": "Code Documentation",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "Expand",
+  "tsconfig": "./tsconfig.json",
+  "out": "docs"
+}

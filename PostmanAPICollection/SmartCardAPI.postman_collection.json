@@ -1,0 +1,929 @@
+{
+	"info": {
+		"_postman_id": "05c0bc9b-846d-4b7f-ad4a-f43688ecb74b",
+		"name": "SmartCardAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14398908"
+	},
+	"item": [
+		{
+			"name": "Database",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "CreateUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"test\",\r\n    \"pin\":\"1234\",\r\n    \"role\":\"STU\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/auth/CreateUser",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"auth",
+										"CreateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LoginUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"admin\",\r\n    \"pin\":\"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/auth/LoginUser",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"auth",
+										"LoginUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteUser",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/auth/DeleteUser",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"auth",
+										"DeleteUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserPin",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"pin\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/auth/UpdateUserPin",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"auth",
+										"UpdateUserPin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Library",
+					"item": [
+						{
+							"name": "GetLibraryBooks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://127.0.0.1:5001/library/Books",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"library",
+										"Books"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "https://goodreadsraygorodskijv1.p.rapidapi.com/getBookReviewsByTitle",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-RapidAPI-Host",
+										"value": "GoodreadsraygorodskijV1.p.rapidapi.com",
+										"disabled": true
+									},
+									{
+										"key": "X-RapidAPI-Key",
+										"value": "1e7c59df3emsh4eefa8d504f06f8p14cef4jsn346cdff81a11",
+										"disabled": true
+									},
+									{
+										"key": "content-type",
+										"value": "application/x-www-form-urlencoded",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "https://www.googleapis.com/books/v1/volumes?q=isbn:0596007124+isbn:0704381362&projection=lite&key=AIzaSyAhu247Bm81ncS8b5mnnsAa5ccRTIjOcl0",
+									"protocol": "https",
+									"host": [
+										"www",
+										"googleapis",
+										"com"
+									],
+									"path": [
+										"books",
+										"v1",
+										"volumes"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "isbn:0596007124+isbn:0704381362"
+										},
+										{
+											"key": "projection",
+											"value": "lite"
+										},
+										{
+											"key": "key",
+											"value": "AIzaSyAhu247Bm81ncS8b5mnnsAa5ccRTIjOcl0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IssueBook",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"BookIds\": [1,4],\r\n    \"UserId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/library/IssueBook",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"library",
+										"IssueBook"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ReturnBook",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"BookIds\": [1,4],\r\n    \"UserId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/library/ReturnBook",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"library",
+										"ReturnBook"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IssuedBooks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/library/IssuedBooks/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"library",
+										"IssuedBooks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ExamScore",
+					"item": [
+						{
+							"name": "BySubjectId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"studentId\": 2,\r\n    \"subjectId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/examMarks/BySubjectId",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"examMarks",
+										"BySubjectId"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AllMarks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"studentId\": 2,\r\n    \"subjectId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/examMarks/",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"examMarks",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ByStudentId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"studentId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://127.0.0.1:5001/examMarks/ByStudentId",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"examMarks",
+										"ByStudentId"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Attendance",
+					"item": [
+						{
+							"name": "GetLeaveTypes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://127.0.0.1:5001/database/GetLeaveTypes",
+									"protocol": "https",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "5001",
+									"path": [
+										"database",
+										"GetLeaveTypes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "WRITE DATABASE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Client",
+								"value": "web",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Test\",\r\n    \"minPlayers\": 2,\r\n    \"maxPlayers\": 2,\r\n    \"averageDuration\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://127.0.0.1:5001/database/WriteDatabase",
+							"protocol": "https",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"database",
+								"WriteDatabase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SUBJECTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Client",
+								"value": "web",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobile_number\" : 7488074295\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://127.0.0.1:5001/database/GetSubjects",
+							"protocol": "https",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"database",
+								"GetSubjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Leave Types",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Client",
+								"value": "web",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobile_number\" : 7488074295\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://127.0.0.1:5001/database/GetLeaveTypes",
+							"protocol": "https",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"database",
+								"GetLeaveTypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Student Personal Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://127.0.0.1:5001/database/GetStudentProfile/1",
+							"protocol": "https",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"database",
+								"GetStudentProfile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET READERS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mobile_number\" : 7488074295\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE ROW",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"TestTwo\",\r\n    \"minPlayers\": 2,\r\n    \"maxPlayers\": 2,\r\n    \"averageDuration\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/database/UpdateRow?id=1",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"database",
+						"UpdateRow"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE FILE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reader_name\": \"Identiv uTrust 4701 F CL Reader 0\",\r\n    \"apdu\": \"TEST APDU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers/CreateFile",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers",
+						"CreateFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE BINARY",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reader_name\": \"Identiv uTrust 4701 F CL Reader 0\",\r\n    \"apdu\": \"TEST APDU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers/UpdateBinary",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers",
+						"UpdateBinary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ BINARY",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reader_name\": \"Identiv uTrust 4701 F CL Reader 0\",\r\n    \"apdu\": \"TEST APDU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers/ReadBinary",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers",
+						"ReadBinary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SelectFile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reader_name\": \"Identiv uTrust 4701 F CL Reader 0\",\r\n    \"apdu\": \"TEST APDU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers/SelectFile",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers",
+						"SelectFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE FILE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Client",
+						"value": "web",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reader_name\": \"Identiv uTrust 4701 F CL Reader 0\",\r\n    \"apdu\": \"TEST APDU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers/DeleteFile",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers",
+						"DeleteFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConvertHexToString",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reader_name\": \"Identiv uTrust 4701 F CL Reader 0\",\r\n    \"apdu\": \"49 4E 46 49 4E 45 4F 4E\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:5001/readers/ConvertHexToString",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"readers",
+						"ConvertHexToString"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
