@@ -1,6 +1,7 @@
 // Statically generated page
 
-import axios, { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 
@@ -10,9 +11,11 @@ import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
 import ButtonLink from '@/components/links/ButtonLink';
 
-import { BACKEND_URL, Book } from '@/utils/consts';
+import type { Book } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
 import { shimmer, toBase64 } from '@/utils/imageBlur';
-import { BookMetadata, getMetadata } from '@/utils/libraryBooks';
+import type { BookMetadata } from '@/utils/libraryBooks';
+import { getMetadata } from '@/utils/libraryBooks';
 
 interface BookIdProps {
   metadata: BookMetadata;

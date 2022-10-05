@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Npgsql;
 using NpgsqlTypes;
 using REST.Converters.Database;
@@ -509,6 +511,51 @@ namespace REST.Repositories
                     return marks;
                 }
             }
+        }
+
+        /*
+        * ATTENDANCE OPERATIONS
+        */
+        public async Task<EAttendance> AddAttendance(EAttendance attendance)
+        {
+            /*
+                TWO VARIATIONS OF SQL QUERY
+                1. INSERT INTO ATTENDANCE (USER_ID, STATUS)
+                    VALUES (1, 'SICK LEAVE');
+
+                2. INSERT INTO ATTENDANCE (user_id, date, time, status)
+                    VALUES (2, '2022-04-18', '12:00:00', 'PRESENT');
+            */
+
+            // attendance.Date to Datetime
+            DateTime date = DateTime.Parse(attendance.Date);
+            // attendance.Time to TimeSpan
+            TimeSpan time = TimeSpan.Parse(attendance.Time);
+
+            try
+            {
+                string commandText =
+                    "INSERT INTO ATTENDANCE (user_id, date, time, status) VALUES (@user_id, @date, @time, @status)";
+                await using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connection))
+                {
+                    cmd.Parameters.AddWithValue("@user_id", attendance.UserId);
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@time", time);
+                    cmd.Parameters.AddWithValue("@status", attendance.Status);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            // Catch NPGSQL Exception
+            catch (NpgsqlException e)
+            {
+                throw new Exception(e.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return attendance;
         }
     }
 }

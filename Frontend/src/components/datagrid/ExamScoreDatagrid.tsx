@@ -11,16 +11,18 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { DataGridProps } from '@mui/x-data-grid';
+import type { DataGridProps } from '@mui/x-data-grid';
 import Link from 'next/link';
 import React from 'react';
 
-import {
-  createData,
+import type {
   Data,
   Data as ExamScoreType,
-  getComparator,
   Order,
+} from '@/components/datagrid/consts';
+import {
+  createData,
+  getComparator,
   stableSort,
 } from '@/components/datagrid/consts';
 import EnhancedTableHead from '@/components/datagrid/EnhancedTableHead';

@@ -10,7 +10,8 @@ import Input from '@/components/Input';
 import ArrowLink from '@/components/links/ArrowLink';
 import ButtonLink from '@/components/links/ButtonLink';
 
-import { BACKEND_URL, Reader, Response, Trigger } from '@/utils/consts';
+import type { Reader, Response, Trigger } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
 import { triggers } from '@/utils/consts';
 
 interface Props {

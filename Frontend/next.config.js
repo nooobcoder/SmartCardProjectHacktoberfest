@@ -11,7 +11,7 @@ module.exports = {
       'res.cloudinary.com',
       'tailwindui.com',
       'avatars.dicebear.com',
-      'books.google.com'
+      'books.google.com',
     ],
   },
 

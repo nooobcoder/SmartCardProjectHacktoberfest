@@ -153,7 +153,7 @@ export type {
   Response,
   SimpleDropdownProps,
   Trigger,
-  UserPrivelegesType
+  UserPrivelegesType,
 };
 export {
   BACKEND_URL,
@@ -163,4 +163,3 @@ export {
   USER_PRIVILEGES,
   WEBSOCKET_URL,
 };
-

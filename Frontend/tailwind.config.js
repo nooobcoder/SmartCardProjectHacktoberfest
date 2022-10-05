@@ -3,14 +3,13 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}',
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        RobotoSlab: ['Roboto Slab', 'sans-serif',],
-        Silkscreen: ['Silkscreen', 'sans-serif',],
-        SpaceMono: ['Space Mono', 'sans-serif',],
+        RobotoSlab: ['Roboto Slab', 'sans-serif'],
+        Silkscreen: ['Silkscreen', 'sans-serif'],
+        SpaceMono: ['Space Mono', 'sans-serif'],
         primary: ['Inter', ...fontFamily.sans],
       },
       colors: {
@@ -50,16 +49,15 @@ module.exports = {
           },
         },
         shine: {
-          "100%": { left: "125%" },
+          '100%': { left: '125%' },
         },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
-        shine: "shine 1s",
+        shine: 'shine 1s',
       },
     },
   },
-  plugins: [require('@tailwindcss/forms'),
-  ],
+  plugins: [require('@tailwindcss/forms')],
 };

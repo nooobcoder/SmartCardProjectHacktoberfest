@@ -3,8 +3,9 @@ import Image from 'next/image';
 import { useCookies } from 'react-cookie';
 import toast from 'react-hot-toast';
 
-import { BACKEND_URL, Book } from '@/utils/consts';
-import { BookMetadata } from '@/utils/libraryBooks';
+import type { Book } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
+import type { BookMetadata } from '@/utils/libraryBooks';
 
 interface CartVisibilityOptions {
   cartVisible: boolean;

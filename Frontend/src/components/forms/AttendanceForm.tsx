@@ -15,25 +15,37 @@ import {
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs, { Dayjs } from 'dayjs';
+import axios from 'axios';
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 import type { LeaveType } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
 
 interface Props {
   leaveTypes: Array<LeaveType>;
+}
+
+interface FormData {
+  date: string;
+  time: string;
+  status: string;
+  userId: string;
 }
 
 export default function AttendanceForm({ leaveTypes }: Props) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement>(null);
-  const [_formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     date: dayjs().format('YYYY-MM-DD'),
     time: dayjs().format('HH:mm:ss'),
     status: 'Present',
-    studentId: '',
+    userId: '',
   });
+
   // Supported Date type: YYYY-MM-DD
   // Supported Time type: HH:mm:ss
   const [dayValue, setDayValue] = useState<Dayjs | null>(dayjs());
@@ -48,7 +60,33 @@ export default function AttendanceForm({ leaveTypes }: Props) {
     setIsMobile(isMobile);
   }, [setIsMobile]);
 
-  const onSubmit = (
+  const addAttendanceToDatabase = async () => {
+    // ATTENDANCE URL:  ${process.env.BACKEND_URL}/attendance/AddAttendance
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/attendance/AddAttendance`,
+        formData
+      );
+
+      if (response.status === 200) {
+        toast.success('Attendance added successfully!');
+      }
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        // console.log(err.config);
+        // console.log(err.request);
+        const errData = err.response.data as string;
+        toast.error(errData, {
+          duration: 5000,
+          position: 'top-right',
+        });
+      } else {
+        // Stock Error, handle accordingly.
+      }
+    }
+  };
+
+  const onSubmit = async (
     e: React.FormEvent<HTMLFormElement | HTMLButtonElement>
   ) => {
     e.preventDefault();
@@ -63,8 +101,11 @@ export default function AttendanceForm({ leaveTypes }: Props) {
       date: date,
       time: time,
       status: data.get('status') as string,
-      studentId: data.get('studentId') as string,
+      userId: data.get('userId') as string,
     });
+
+    // After the form data is set, submit the data to the database
+    await addAttendanceToDatabase();
   };
 
   return (
@@ -113,8 +154,9 @@ export default function AttendanceForm({ leaveTypes }: Props) {
           required
           id='outlined-required'
           label='Student Id'
-          name='studentId'
+          name='userId'
           type='text'
+          onChange={(e) => setFormData({ ...formData, userId: e.target.value })}
         />
       </div>
       <div>
@@ -122,7 +164,7 @@ export default function AttendanceForm({ leaveTypes }: Props) {
           <Stack spacing={3}>
             {!isMobile ? (
               <DesktopDatePicker
-                label='Date desktop'
+                label='Attendance Date'
                 inputFormat='MM/DD/YYYY'
                 value={dayValue}
                 onChange={handleDateChange}
@@ -130,7 +172,7 @@ export default function AttendanceForm({ leaveTypes }: Props) {
               />
             ) : (
               <MobileDatePicker
-                label='Date mobile'
+                label='Attendance Date'
                 inputFormat='MM/DD/YYYY'
                 value={dayValue}
                 onChange={handleDateChange}
@@ -138,7 +180,7 @@ export default function AttendanceForm({ leaveTypes }: Props) {
               />
             )}
             <TimePicker
-              label='Time'
+              label='Attendance Time'
               value={dayValue}
               onChange={handleDateChange}
               renderInput={(params) => <TextField {...params} />}
@@ -149,6 +191,30 @@ export default function AttendanceForm({ leaveTypes }: Props) {
           Submit
         </Button>
       </div>
+      <Toaster
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=''
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 5000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: 'green',
+              secondary: 'black',
+            },
+          },
+        }}
+      />
     </Box>
   );
 }

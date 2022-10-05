@@ -1,12 +1,12 @@
 import { Skeleton } from '@mui/material';
 import axios from 'axios';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { Suspense, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
-import { Data as ExamScoreType } from '@/components/datagrid/consts';
+import type { Data as ExamScoreType } from '@/components/datagrid/consts';
 import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
