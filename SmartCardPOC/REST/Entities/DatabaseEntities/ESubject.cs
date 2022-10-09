@@ -1,4 +1,4 @@
-﻿namespace REST.Entities.DatabaseEntities
+namespace REST.Entities.DatabaseEntities
 {
     public class ESubject
     {

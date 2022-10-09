@@ -12,7 +12,7 @@ import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
 
-import type { Book } from '@/utils/consts';
+import type { Book, UserCookie } from '@/utils/consts';
 import { BACKEND_URL } from '@/utils/consts';
 import type { BookMetadata } from '@/utils/libraryBooks';
 import { getMetadata } from '@/utils/libraryBooks';
@@ -39,7 +39,7 @@ const Books: React.FC<PropTypes> = ({ fetchedBooks, booksMetadata }) => {
   });
 
   const [cookies] = useCookies(['user']);
-  const user = cookies.user;
+  const user: UserCookie = cookies.user;
 
   const getIssuedBooks = async () => {
     // API URL: https://localhost:5001/library/IssuedBooks/1

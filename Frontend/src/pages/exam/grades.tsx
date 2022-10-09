@@ -6,11 +6,12 @@ import { useRouter } from 'next/router';
 import { Suspense, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
-import type { Data as ExamScoreType } from '@/components/datagrid/consts';
+import type { Data as ExamScoreType } from '@/components/datagrid/ExamScore/consts';
 import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
+import type { UserCookie } from '@/utils/consts';
 import { BACKEND_URL, USER_PRIVILEGES } from '@/utils/consts';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const DynamicExamScoreDatagrid = dynamic(
-  () => import('@/components/datagrid/ExamScoreDatagrid'),
+  () => import('@/components/datagrid/ExamScore/ExamScoreDatagrid'),
   {
     suspense: true,
   }
@@ -29,7 +30,7 @@ const ExamScore: React.FC<Props> = ({ grades }) => {
 
   // Get the user from the cookies
   const [cookies, _, removeCookie] = useCookies(['user']);
-  const user = cookies.user;
+  const user: UserCookie = cookies.user;
 
   const router = useRouter();
 

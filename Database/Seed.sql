@@ -142,6 +142,9 @@ VALUES ('SICK LEAVE'),
        ('LEAVE'),
        ('HOLIDAY');
 
+SELECT *
+FROM LEAVE_TYPES;
+
 -- Create Attendance table to store attendance of students in dd-mm-yyyy format
 DROP TABLE IF EXISTS ATTENDANCE;
 CREATE TABLE ATTENDANCE
@@ -184,6 +187,145 @@ VALUES (3, '2022-08-14', '12:00:00', 'ABSENT');
 INSERT INTO ATTENDANCE (USER_ID, STATUS)
 VALUES (2, 'ABSENT');
 
+-- Select rows from ATTENDANCE table and convert dates to dd-mm-yyyy format
+SELECT user_id, to_char(date, 'DD-MM-YYYY'), time, status
+FROM ATTENDANCE;
+
+-- Create a view to display attendance of students in dd-mm-yyyy format and add column matching the user id with their name and sorted by most recent date
+DROP VIEW IF EXISTS ATTENDANCE_VIEW;
+CREATE OR REPLACE VIEW attendance_view AS
+SELECT ATTENDANCE_ID,
+       USERS.USER_ID,
+       USERS.USERNAME,
+       to_char(ATTENDANCE.date, 'DD-MM-YYYY') AS date,
+       ATTENDANCE.time,
+       ATTENDANCE.status
+FROM USERS
+         JOIN ATTENDANCE
+              ON USERS.USER_ID = ATTENDANCE.USER_ID
+ORDER BY ATTENDANCE.date DESC;
+
+-- attendance_view
+SELECT *
+FROM attendance_view;
+
+-- Check if a certain user has the write_attendance privilege
+SELECT USER_PRIVILEGES.ROLE_ID, USER_PRIVILEGES.ROLE, USER_PRIVILEGES.ATTENDANCE_WRITE
+FROM USERS
+         JOIN USER_PRIVILEGES
+              ON USERS.ROLE = USER_PRIVILEGES.ROLE
+WHERE USERS.USERNAME = 'student';
+
+-- Function to get attendance of all students with serial number for each row
+DROP FUNCTION IF EXISTS get_all_attendances;
+CREATE FUNCTION get_all_attendances()
+    RETURNS TABLE
+            (
+                SERIAL_NUMBER INT,
+                ATTENDANCE_ID INT,
+                USER_ID       INT,
+                USERNAME      VARCHAR(50),
+                ATT_DATE      VARCHAR(50),
+                ATT_TIME      TIME,
+                STATUS        VARCHAR(50)
+            )
+AS
+$$
+SELECT ROW_NUMBER() OVER (ORDER BY ATTENDANCE.date DESC) AS SERIAL_NUMBER,
+       ATTENDANCE.ATTENDANCE_ID,
+       USERS.USER_ID,
+       USERS.USERNAME,
+       to_char(ATTENDANCE.date, 'DD-MM-YYYY')            AS date,
+       ATTENDANCE.time,
+       ATTENDANCE.status
+FROM USERS
+         JOIN ATTENDANCE
+              ON USERS.USER_ID = ATTENDANCE.USER_ID
+ORDER BY ATTENDANCE.date DESC;
+$$ LANGUAGE SQL;
+
+-- Call the function
+SELECT *
+FROM get_all_attendances();
+
+
+-- Get the attendance of a user id.
+-- This function will be used to get the attendance of a student by the teacher
+DROP FUNCTION IF EXISTS get_attendance_by_id;
+CREATE FUNCTION get_attendance_by_id(i_user_id INT)
+    RETURNS TABLE
+            (
+                ATTENDANCE_ID INT,
+                USER_ID       INT,
+                USERNAME      VARCHAR(50),
+                ATT_DATE      VARCHAR(50),
+                ATT_TIME      TIME,
+                STATUS        VARCHAR(50)
+            )
+AS
+$$
+SELECT ATTENDANCE.ATTENDANCE_ID,
+       USERS.USER_ID,
+       USERS.USERNAME,
+       to_char(ATTENDANCE.date, 'DD-MM-YYYY') AS date,
+       ATTENDANCE.time,
+       ATTENDANCE.status
+FROM USERS
+         JOIN ATTENDANCE
+              ON USERS.USER_ID = ATTENDANCE.USER_ID
+WHERE USERS.USER_ID = i_user_id
+ORDER BY ATTENDANCE.date DESC;
+$$ LANGUAGE SQL;
+
+SELECT *
+FROM get_attendance_by_id(3);
+
+
+-- Routine to get attendance of a user input user_id, month and year
+DROP FUNCTION get_attendance();
+CREATE OR REPLACE FUNCTION get_attendance(i_user_id INT, month INT, year INT)
+    RETURNS TABLE
+            (
+                SERIAL_NUMBER INT,
+                ATTENDANCE_ID INT,
+                USER_ID       INT,
+                USERNAME      VARCHAR(50),
+                ATT_DATE      DATE,
+                ATT_TIME      TIME,
+                STATUS        VARCHAR(50)
+            )
+AS
+$$
+SELECT ROW_NUMBER() OVER (ORDER BY ATTENDANCE.date DESC) AS SERIAL_NUMBER,
+       ATTENDANCE.ATTENDANCE_ID,
+       ATTENDANCE.USER_ID,
+       USERS.USERNAME,
+       ATTENDANCE.date,
+       ATTENDANCE.time,
+       ATTENDANCE.status
+FROM USERS
+         JOIN ATTENDANCE
+              ON USERS.USER_ID = ATTENDANCE.USER_ID
+WHERE ATTENDANCE.USER_ID = i_user_id
+  AND EXTRACT(MONTH FROM ATTENDANCE.date) = month
+  AND EXTRACT(YEAR FROM ATTENDANCE.date) = year
+ORDER BY ATTENDANCE.date DESC;
+$$ LANGUAGE SQL;
+
+
+-- Run the procedure
+SELECT *
+FROM get_attendance(3, 08, 2022);
+
+-- Total number of present in the month of year
+SELECT COUNT(*)
+FROM get_attendance(3, 08, 2022)
+WHERE STATUS = 'PRESENT';
+
+-- Total number of absent or other leaves in the month of year
+SELECT COUNT(*)
+FROM get_attendance(2, 08, 2022)
+WHERE STATUS != 'PRESENT';
 
 -- Create table for student personal details
 DROP TABLE IF EXISTS STUDENT_PERSONAL_DETAILS;
@@ -761,73 +903,6 @@ FROM USERS;
 
 SELECT *
 FROM USER_PRIVILEGES;
-
--- Select rows from ATTENDANCE table and convert dates to dd-mm-yyyy format
-SELECT user_id, to_char(date, 'DD-MM-YYYY'), time, status
-FROM ATTENDANCE;
-
--- Create a view to display attendance of students in dd-mm-yyyy format and add column matching the user id with their name and sorted by most recent date
-DROP VIEW IF EXISTS ATTENDANCE_VIEW;
-CREATE OR REPLACE VIEW attendance_view AS
-SELECT ATTENDANCE_ID,
-       USERS.USER_ID,
-       USERS.USERNAME,
-       to_char(ATTENDANCE.date, 'DD-MM-YYYY') AS date,
-       ATTENDANCE.time,
-       ATTENDANCE.status
-FROM USERS
-         JOIN ATTENDANCE
-              ON USERS.USER_ID = ATTENDANCE.USER_ID
-ORDER BY ATTENDANCE.date DESC;
-
--- attendance_view
-SELECT *
-FROM attendance_view;
-
--- Check if a certain user has the write_attendance privilege
-SELECT USER_PRIVILEGES.ROLE_ID, USER_PRIVILEGES.ROLE, USER_PRIVILEGES.ATTENDANCE_WRITE
-FROM USERS
-         JOIN USER_PRIVILEGES
-              ON USERS.ROLE = USER_PRIVILEGES.ROLE
-WHERE USERS.USERNAME = 'student';
-
--- Routine to get attendance of a user input user_id, month and year
-DROP FUNCTION get_attendance();
-CREATE OR REPLACE FUNCTION get_attendance(user_id INT, month INT, year INT)
-    RETURNS TABLE
-            (
-                USER_ID  INT,
-                USERNAME VARCHAR(50),
-                ATT_DATE DATE,
-                ATT_TIME TIME,
-                STATUS   VARCHAR(50)
-            )
-AS
-$$
-SELECT USERS.USER_ID, USERS.USERNAME, ATTENDANCE.date, ATTENDANCE.time, ATTENDANCE.status
-FROM USERS
-         JOIN ATTENDANCE
-              ON USERS.USER_ID = ATTENDANCE.USER_ID
-WHERE USERS.USER_ID = $1
-  AND extract(month from ATTENDANCE.date) = $2
-  AND extract(year from ATTENDANCE.date) = $3
-ORDER BY date;
-$$ LANGUAGE SQL;
-
--- Run the procedure
-SELECT *
-FROM get_attendance(3, 08, 2022);
-
--- Total number of present in the month of year
-SELECT COUNT(*)
-FROM get_attendance(3, 08, 2022)
-WHERE STATUS = 'PRESENT';
-
--- Total number of absent or other leaves in the month of year
-SELECT COUNT(*)
-FROM get_attendance(2, 08, 2022)
-WHERE STATUS != 'PRESENT';
-
 
 -- Update PIN of user by id
 UPDATE USERS

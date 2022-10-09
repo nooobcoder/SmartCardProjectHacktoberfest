@@ -23,15 +23,6 @@ export default function Header() {
     router.push('/auth/login');
   };
 
-  /*
-      cookie.user -> {
-      "userId": 47,
-      "username": "superninja",
-      "pin": "AIFpTd3uc1HLu+ubUNQQEO6kKLf9k2IxJcy7pZbeoABb2+rNsaqy8UaGXmKG+FcUfw==",
-      "role": "ADM"
-      }
-  */
-
   return (
     <header className='sticky top-0 z-50 flex bg-purple-200 to-red-500 py-1'>
       <div className='layout flex h-14 items-center justify-around'>

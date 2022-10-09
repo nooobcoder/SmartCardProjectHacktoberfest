@@ -156,20 +156,20 @@ namespace REST.Controllers
 
                     sb.AppendLine($", previous state: {changed.PreviousState}, new state: {changed.NewState}");
                     break;
-                // case CardRemoved removed:
-                //     if (removed.State == SCRState.Empty)
-                //         sb.AppendLine($", state: {removed.State}");
-                //     break;
-                // case CardInserted inserted:
-                //     if (inserted.State == SCRState.Present)
-                //         sb.AppendLine($", state: {inserted.State}, ATR: {BitConverter.ToString(inserted.Atr)}");
-                //     break;
-                // case MonitorInitialized initialized:
-                //     sb.AppendLine($", state: {initialized.State}, ATR: {BitConverter.ToString(initialized.Atr)}");
-                //     break;
-                // case MonitorCardInfoEvent infoEvent:
-                //     sb.AppendLine($", state: {infoEvent.State}, ATR: {BitConverter.ToString(infoEvent.Atr)}");
-                //     break;
+                    // case CardRemoved removed:
+                    //     if (removed.State == SCRState.Empty)
+                    //         sb.AppendLine($", state: {removed.State}");
+                    //     break;
+                    // case CardInserted inserted:
+                    //     if (inserted.State == SCRState.Present)
+                    //         sb.AppendLine($", state: {inserted.State}, ATR: {BitConverter.ToString(inserted.Atr)}");
+                    //     break;
+                    // case MonitorInitialized initialized:
+                    //     sb.AppendLine($", state: {initialized.State}, ATR: {BitConverter.ToString(initialized.Atr)}");
+                    //     break;
+                    // case MonitorCardInfoEvent infoEvent:
+                    //     sb.AppendLine($", state: {infoEvent.State}, ATR: {BitConverter.ToString(infoEvent.Atr)}");
+                    //     break;
             }
 
             await SendMessage(sb.ToString());

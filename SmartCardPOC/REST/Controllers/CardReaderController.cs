@@ -1,12 +1,12 @@
-﻿using Infineon.NGTF.Common;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Infineon.NGTF.Common;
 using Microsoft.AspNetCore.Mvc;
 using Middleware;
 using Newtonsoft.Json;
 using REST.Entities;
 using REST.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace REST.Controllers
 {

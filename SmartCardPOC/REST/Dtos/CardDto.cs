@@ -1,4 +1,4 @@
-﻿namespace REST.Dtos
+namespace REST.Dtos
 {
     public class CardDto
     {

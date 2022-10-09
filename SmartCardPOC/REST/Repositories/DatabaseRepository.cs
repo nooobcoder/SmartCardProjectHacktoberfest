@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -516,6 +516,73 @@ namespace REST.Repositories
         /*
         * ATTENDANCE OPERATIONS
         */
+        // Fetch attendances of all students
+        public async Task<List<EAttendance>> GetAttendances()
+        {
+            /*
+                SELECT * FROM get_all_attendances();
+            */
+            string FUNCTION_NAME = "get_all_attendances";
+            string commandText = $"SELECT * FROM {FUNCTION_NAME}()";
+            await using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connection))
+            {
+                await using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    var attendances = new List<EAttendance>();
+                    int x = 0;
+                    while (await reader.ReadAsync())
+                    {
+                        EAttendance attendance = databaseConverters.ReadAttendance(reader, x);
+                        attendances.Add(attendance);
+                        x += 1;
+                    }
+
+                    return attendances;
+                }
+            }
+        }
+
+        // Fetch attendance of a student by id
+        public async Task<List<EAttendance>> GetAttendanceByStudentId(int studentId)
+        {
+            /*
+                SELECT * FROM get_attendance_by_id(1);
+            */
+            try
+            {
+                string FUNCTION_NAME = "get_attendance_by_id";
+                string commandText = $"SELECT * FROM {FUNCTION_NAME}(@student_id)";
+                await using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connection))
+                {
+                    cmd.Parameters.AddWithValue("@student_id", studentId);
+                    await using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    {
+                        var attendances = new List<EAttendance>();
+                        int x = 0;
+                        while (await reader.ReadAsync())
+                        {
+                            EAttendance attendance = databaseConverters.ReadAttendance(reader, x);
+                            attendances.Add(attendance);
+                            x += 1;
+                        }
+
+                        return attendances;
+                    }
+                }
+
+            }
+            // Catch NPGSQL Exception
+            catch (NpgsqlException e)
+            {
+                throw new Exception(e.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        // Add attendance of a student by student id and leave type.
         public async Task<EAttendance> AddAttendance(EAttendance attendance)
         {
             /*

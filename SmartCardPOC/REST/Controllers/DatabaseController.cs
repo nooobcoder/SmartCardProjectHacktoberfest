@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using REST.Entities;
-using REST.Entities.DatabaseEntities;
-using REST.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using REST.Entities;
+using REST.Entities.DatabaseEntities;
+using REST.Repositories.Interfaces;
 
 namespace REST.Controllers
 {

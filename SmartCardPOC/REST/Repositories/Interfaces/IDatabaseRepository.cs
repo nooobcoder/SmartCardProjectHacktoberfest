@@ -1,7 +1,7 @@
-﻿using REST.Dtos;
-using REST.Entities.DatabaseEntities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using REST.Dtos;
+using REST.Entities.DatabaseEntities;
 
 namespace REST.Repositories.Interfaces
 {
@@ -40,7 +40,8 @@ namespace REST.Repositories.Interfaces
 
         // Attendance Operations
         Task<EAttendance> AddAttendance(EAttendance attendance);
-        // Task<List<EAttendance>> GetAttendanceByStudentId(int studentId);
+        Task<List<EAttendance>> GetAttendances();
+        Task<List<EAttendance>> GetAttendanceByStudentId(int studentId);
         // Task<EAttendance> UpdateAttendance(EAttendance updateAttendanceDto);
         // Task<List<EAttendance>> GetAttendanceByDate(int studentId, string date);
         // Task DeleteAttendance(int attendanceId);

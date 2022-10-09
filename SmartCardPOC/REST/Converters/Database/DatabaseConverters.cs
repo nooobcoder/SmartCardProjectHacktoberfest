@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using Npgsql;
 using REST.Entities.DatabaseEntities;
@@ -138,7 +138,7 @@ namespace REST.Converters.Database
         }
 
         // ReadExamScore
-        public EExamScore ReadExamScore(NpgsqlDataReader reader,int serial)
+        public EExamScore ReadExamScore(NpgsqlDataReader reader, int serial)
         {
             /*
             CREATE TABLE EXAM_SCORES
@@ -161,7 +161,7 @@ namespace REST.Converters.Database
 
             EExamScore exam = new EExamScore
             {
-                SerialNumber = serial +1,
+                SerialNumber = serial + 1,
                 StudentId = student_id.HasValue ? student_id.Value : 0,
                 // user_id.value can be null, store null otherwise
                 SubjectName = subject_name,
@@ -172,6 +172,31 @@ namespace REST.Converters.Database
             };
 
             return exam;
+        }
+
+        // ReadAttendance
+        public EAttendance ReadAttendance(NpgsqlDataReader reader, int serial)
+        {
+            int? user_id = reader["user_id"] as int?;
+            int? attendance_id = reader["attendance_id"] as int?;
+            // reader[att_date] is in "yyyy-MM-dd" format
+            string att_date = reader["att_date"] as string;
+            // att_time is Timespan, convert to hh:mm:ss
+            TimeSpan att_time = reader["att_time"] as TimeSpan? ?? TimeSpan.Zero;
+
+            string status = reader["status"] as string;
+
+            EAttendance attendance = new EAttendance
+            {
+                SerialNumber = serial + 1,
+                UserId = user_id.Value,
+                AttendanceId = attendance_id.Value,
+                AttDate = att_date,
+                AttTime = att_time.ToString(@"hh\:mm\:ss"),
+                Status = status
+            };
+
+            return attendance;
         }
     }
 }

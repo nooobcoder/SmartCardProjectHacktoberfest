@@ -1,4 +1,4 @@
-﻿namespace REST.Entities
+namespace REST.Entities
 {
     public class BoardGame
     {

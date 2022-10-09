@@ -139,8 +139,11 @@ export default function AttendanceForm({ leaveTypes }: Props) {
           labelId='demo'
           id='demo'
           name='status'
-          value={leaveTypes[2]?.leaveType}
+          value={formData.status || leaveTypes[0].leaveType}
           label='Attendance/Leave Type'
+          onChange={(e) =>
+            setFormData({ ...formData, status: e.target.value as string })
+          }
         >
           {leaveTypes?.map((leaveType: LeaveType) => (
             <MenuItem key={leaveType.leaveTypeId} value={leaveType.leaveType}>

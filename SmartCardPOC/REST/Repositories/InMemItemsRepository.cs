@@ -1,8 +1,8 @@
-﻿using REST.Entities;
-using REST.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using REST.Entities;
+using REST.Repositories.Interfaces;
 
 namespace REST.Repositories
 {
@@ -10,11 +10,11 @@ namespace REST.Repositories
     {
         private readonly List<Item> items = new()
         {
-            new Item{ Id=Guid.NewGuid(),Name="Potion", Price=9, CreatedDate=DateTimeOffset.UtcNow},
-            new Item{ Id=Guid.NewGuid(),Name="Iron Sword", Price=20, CreatedDate=DateTimeOffset.UtcNow},
-            new Item{ Id=Guid.NewGuid(),Name="Halo", Price=12, CreatedDate=DateTimeOffset.UtcNow},
-            new Item{ Id=Guid.NewGuid(),Name="Bronze Shield", Price=18, CreatedDate=DateTimeOffset.UtcNow},
-            new Item{ Id=Guid.NewGuid(),Name="Katana Kombat", Price=22, CreatedDate=DateTimeOffset.UtcNow}
+            new Item { Id = Guid.NewGuid(), Name = "Potion", Price = 9, CreatedDate = DateTimeOffset.UtcNow },
+            new Item { Id = Guid.NewGuid(), Name = "Iron Sword", Price = 20, CreatedDate = DateTimeOffset.UtcNow },
+            new Item { Id = Guid.NewGuid(), Name = "Halo", Price = 12, CreatedDate = DateTimeOffset.UtcNow },
+            new Item { Id = Guid.NewGuid(), Name = "Bronze Shield", Price = 18, CreatedDate = DateTimeOffset.UtcNow },
+            new Item { Id = Guid.NewGuid(), Name = "Katana Kombat", Price = 22, CreatedDate = DateTimeOffset.UtcNow }
         };
 
         public void CreateItem(Item item) { items.Add(item); }

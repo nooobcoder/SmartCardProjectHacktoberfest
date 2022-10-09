@@ -1,4 +1,4 @@
-import { FastForwardIcon } from '@heroicons/react/solid';
+import { ForwardIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import type { GetServerSideProps } from 'next/types';
 import { useEffect, useState } from 'react';
@@ -192,7 +192,7 @@ const POC = ({ readers }: Props) => {
           {/* Purple color text div */}
           <span className='text-purple-500'>
             PC/SC
-            <FastForwardIcon className='ml-3 inline h-8 w-12 fill-purple-700' />
+            <ForwardIcon className='ml-1 mb-1 inline h-6 w-12 fill-purple-700' />
           </span>
         </button>
         <div className='my-8 w-2/4'>

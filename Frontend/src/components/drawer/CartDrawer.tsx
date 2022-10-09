@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useCookies } from 'react-cookie';
 import toast from 'react-hot-toast';
 
-import type { Book } from '@/utils/consts';
+import type { Book, UserCookie } from '@/utils/consts';
 import { BACKEND_URL } from '@/utils/consts';
 import type { BookMetadata } from '@/utils/libraryBooks';
 
@@ -32,7 +32,7 @@ const CartDrawer: React.FC<PropTypes> = ({
 }: PropTypes) => {
   // Get the user from the cookies
   const [cookies] = useCookies(['user']);
-  const user = cookies.user;
+  const user: UserCookie = cookies.user;
 
   // const memoisedGetMetadata = useMemo(() => getMetadata, []);
 

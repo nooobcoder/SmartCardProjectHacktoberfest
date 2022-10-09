@@ -1,6 +1,6 @@
-﻿using REST.Entities;
 using System;
 using System.Collections.Generic;
+using REST.Entities;
 
 namespace REST.Repositories.Interfaces
 {
