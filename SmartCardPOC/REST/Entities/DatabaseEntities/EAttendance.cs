@@ -1,13 +1,18 @@
-﻿using System;
+using System;
 
 namespace REST.Entities.DatabaseEntities
 {
     public class EAttendance
     {
+        public int SerialNumber { get; set; }
         public int AttendanceId { get; set; }
         public int UserId { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
+        public string Date { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
+        public string Time { get; set; } = DateTime.Now.TimeOfDay.ToString();
         public string Status { get; set; }
+
+        // AttDate AttTime maps to att_date and att_time which as returned values from the database functions.
+        public string AttDate { get; set; }
+        public string AttTime { get; set; }
     }
 }

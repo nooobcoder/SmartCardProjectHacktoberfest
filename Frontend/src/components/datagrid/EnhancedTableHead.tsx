@@ -4,14 +4,11 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TableSortLabel
+  TableSortLabel,
 } from '@mui/material';
 
-import {
-  Data,
-  EnhancedTableProps,
-  headCells
-} from '@/components/datagrid/consts';
+import type { Data, EnhancedTableProps } from '@/components/datagrid/consts';
+import { headCells } from '@/components/datagrid/consts';
 
 function EnhancedTableHead(props: EnhancedTableProps) {
   const {

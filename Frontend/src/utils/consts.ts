@@ -2,6 +2,14 @@ import axios from 'axios';
 
 const BACKEND_URL = process.env.BACKEND_URL || `https://localhost:5001`;
 const WEBSOCKET_URL = process.env.WEBSOCKET_URL || `wss://localhost:5001/ws`;
+
+interface UserCookie {
+  userId: number;
+  username: string;
+  pin?: null | string;
+  role: 'ADM' | 'STU' | 'PAR' | 'TEA' | 'GEN';
+}
+
 interface Response {
   response: {
     message: string;
@@ -89,6 +97,11 @@ type Book = {
 
 const HEADER_LINKS: Array<HeaderLink> = [
   {
+    href: '/poc',
+    name: 'Project POC',
+    accessor: ['ADM', 'GEN', 'STU'],
+  },
+  {
     href: '/dashboard',
     name: 'Dashboard',
     accessor: ['ADM', 'GEN', 'STU', 'TEA'],
@@ -104,17 +117,12 @@ const HEADER_LINKS: Array<HeaderLink> = [
     accessor: ['ADM'],
   },
   {
-    href: '/poc',
-    name: 'Project POC',
-    accessor: ['ADM', 'GEN', 'STU'],
-  },
-  {
     href: '/exam/grades',
     name: 'Exam Grades',
     accessor: ['ADM', 'STU', 'TEA'],
   },
   {
-    href: '/attendance',
+    href: '/attendances',
     name: 'Attendance',
     accessor: ['ADM', 'STU', 'TEA'],
   },
@@ -143,7 +151,17 @@ const getLeaveTypes = async (): Promise<Array<LeaveType>> => {
   return response.data;
 };
 
+interface AttendanceType {
+  serialNumber: number;
+  attendanceId: number;
+  userId: number;
+  status: LEAVE_TYPES_OPTS;
+  attDate: string;
+  attTime: string;
+}
+
 export type {
+  AttendanceType,
   Book,
   HeaderLink,
   LEAVE_TYPES_OPTS,
@@ -153,7 +171,8 @@ export type {
   Response,
   SimpleDropdownProps,
   Trigger,
-  UserPrivelegesType
+  UserCookie,
+  UserPrivelegesType,
 };
 export {
   BACKEND_URL,
@@ -163,4 +182,3 @@ export {
   USER_PRIVILEGES,
   WEBSOCKET_URL,
 };
-

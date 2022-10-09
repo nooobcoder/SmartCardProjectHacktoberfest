@@ -1,4 +1,4 @@
-﻿namespace Middleware
+namespace Middleware
 {
     // Simple accessor class to provide APDU commands to the webapi.
     public class APDUProvider

@@ -1,7 +1,8 @@
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-import { EnhancedTableToolbarProps } from '@/components/datagrid/consts';
+import type { EnhancedTableToolbarProps } from '@/components/datagrid/consts';
+
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const { numSelected } = props;
 

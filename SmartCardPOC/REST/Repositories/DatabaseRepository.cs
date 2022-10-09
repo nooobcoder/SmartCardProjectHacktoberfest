@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Npgsql;
 using NpgsqlTypes;
 using REST.Converters.Database;
@@ -509,6 +511,118 @@ namespace REST.Repositories
                     return marks;
                 }
             }
+        }
+
+        /*
+        * ATTENDANCE OPERATIONS
+        */
+        // Fetch attendances of all students
+        public async Task<List<EAttendance>> GetAttendances()
+        {
+            /*
+                SELECT * FROM get_all_attendances();
+            */
+            string FUNCTION_NAME = "get_all_attendances";
+            string commandText = $"SELECT * FROM {FUNCTION_NAME}()";
+            await using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connection))
+            {
+                await using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    var attendances = new List<EAttendance>();
+                    int x = 0;
+                    while (await reader.ReadAsync())
+                    {
+                        EAttendance attendance = databaseConverters.ReadAttendance(reader, x);
+                        attendances.Add(attendance);
+                        x += 1;
+                    }
+
+                    return attendances;
+                }
+            }
+        }
+
+        // Fetch attendance of a student by id
+        public async Task<List<EAttendance>> GetAttendanceByStudentId(int studentId)
+        {
+            /*
+                SELECT * FROM get_attendance_by_id(1);
+            */
+            try
+            {
+                string FUNCTION_NAME = "get_attendance_by_id";
+                string commandText = $"SELECT * FROM {FUNCTION_NAME}(@student_id)";
+                await using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connection))
+                {
+                    cmd.Parameters.AddWithValue("@student_id", studentId);
+                    await using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    {
+                        var attendances = new List<EAttendance>();
+                        int x = 0;
+                        while (await reader.ReadAsync())
+                        {
+                            EAttendance attendance = databaseConverters.ReadAttendance(reader, x);
+                            attendances.Add(attendance);
+                            x += 1;
+                        }
+
+                        return attendances;
+                    }
+                }
+
+            }
+            // Catch NPGSQL Exception
+            catch (NpgsqlException e)
+            {
+                throw new Exception(e.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        // Add attendance of a student by student id and leave type.
+        public async Task<EAttendance> AddAttendance(EAttendance attendance)
+        {
+            /*
+                TWO VARIATIONS OF SQL QUERY
+                1. INSERT INTO ATTENDANCE (USER_ID, STATUS)
+                    VALUES (1, 'SICK LEAVE');
+
+                2. INSERT INTO ATTENDANCE (user_id, date, time, status)
+                    VALUES (2, '2022-04-18', '12:00:00', 'PRESENT');
+            */
+
+            // attendance.Date to Datetime
+            DateTime date = DateTime.Parse(attendance.Date);
+            // attendance.Time to TimeSpan
+            TimeSpan time = TimeSpan.Parse(attendance.Time);
+
+            try
+            {
+                string commandText =
+                    "INSERT INTO ATTENDANCE (user_id, date, time, status) VALUES (@user_id, @date, @time, @status)";
+                await using (NpgsqlCommand cmd = new NpgsqlCommand(commandText, connection))
+                {
+                    cmd.Parameters.AddWithValue("@user_id", attendance.UserId);
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@time", time);
+                    cmd.Parameters.AddWithValue("@status", attendance.Status);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            // Catch NPGSQL Exception
+            catch (NpgsqlException e)
+            {
+                throw new Exception(e.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return attendance;
         }
     }
 }

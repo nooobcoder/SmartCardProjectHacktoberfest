@@ -49,10 +49,12 @@ const Attendance = () => {
             ADD ATTENDANCE
           </Button>
         </div>
-        <GenericModal open={modalOpen} setModalOpen={setModalOpen}>
-          {/* Form with inputs for User_Id, Date, Time, Status */}
-          <AttendanceForm leaveTypes={leaveTypes} />
-        </GenericModal>
+        <div>
+          <GenericModal open={modalOpen} setModalOpen={setModalOpen}>
+            {/* Form with inputs for User_Id, Date, Time, Status */}
+            <AttendanceForm leaveTypes={leaveTypes} />
+          </GenericModal>
+        </div>
       </Layout>
     </>
   );

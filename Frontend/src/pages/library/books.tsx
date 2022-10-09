@@ -1,6 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
-import { GetStaticProps } from 'next';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
+import type { GetStaticProps } from 'next';
+import type { ChangeEvent } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Toaster } from 'react-hot-toast';
 
@@ -10,8 +12,10 @@ import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
 
-import { BACKEND_URL, Book } from '@/utils/consts';
-import { BookMetadata, getMetadata } from '@/utils/libraryBooks';
+import type { Book, UserCookie } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
+import type { BookMetadata } from '@/utils/libraryBooks';
+import { getMetadata } from '@/utils/libraryBooks';
 
 // Proptypes
 interface PropTypes {
@@ -35,7 +39,7 @@ const Books: React.FC<PropTypes> = ({ fetchedBooks, booksMetadata }) => {
   });
 
   const [cookies] = useCookies(['user']);
-  const user = cookies.user;
+  const user: UserCookie = cookies.user;
 
   const getIssuedBooks = async () => {
     // API URL: https://localhost:5001/library/IssuedBooks/1

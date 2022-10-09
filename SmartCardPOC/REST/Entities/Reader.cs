@@ -1,4 +1,4 @@
-﻿namespace REST.Entities
+namespace REST.Entities
 {
     public record Reader
     {

@@ -1,4 +1,5 @@
-import App, { AppContext, AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
+import App from 'next/app';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { useEffect, useState } from 'react';

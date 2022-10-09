@@ -1,4 +1,4 @@
-import { FastForwardIcon } from '@heroicons/react/solid';
+import { ForwardIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import type { GetServerSideProps } from 'next/types';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,8 @@ import Input from '@/components/Input';
 import ArrowLink from '@/components/links/ArrowLink';
 import ButtonLink from '@/components/links/ButtonLink';
 
-import { BACKEND_URL, Reader, Response, Trigger } from '@/utils/consts';
+import type { Reader, Response, Trigger } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
 import { triggers } from '@/utils/consts';
 
 interface Props {
@@ -191,7 +192,7 @@ const POC = ({ readers }: Props) => {
           {/* Purple color text div */}
           <span className='text-purple-500'>
             PC/SC
-            <FastForwardIcon className='ml-3 inline h-8 w-12 fill-purple-700' />
+            <ForwardIcon className='ml-1 mb-1 inline h-6 w-12 fill-purple-700' />
           </span>
         </button>
         <div className='my-8 w-2/4'>

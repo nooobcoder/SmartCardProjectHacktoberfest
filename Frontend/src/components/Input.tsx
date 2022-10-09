@@ -2,7 +2,7 @@ interface Props {
   placeholder?: string;
 }
 
-const Input = ({ placeholder = `Placeholder`,  }: Props) => {
+const Input = ({ placeholder = `Placeholder` }: Props) => {
   return (
     <div className='mb-3 pt-0'>
       <input

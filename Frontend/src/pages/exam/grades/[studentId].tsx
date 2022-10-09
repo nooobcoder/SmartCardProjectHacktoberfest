@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import type { Data as ExamScoreType } from '@/components/datagrid/consts';
-import ExamScoreDatagrid from '@/components/datagrid/ExamScoreDatagrid';
+import type { Data as ExamScoreType } from '@/components/datagrid/ExamScore/consts';
+import ExamScoreDatagrid from '@/components/datagrid/ExamScore/ExamScoreDatagrid';
 import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
@@ -56,7 +56,7 @@ const StudentGrades: React.FC<Props> = ({ grades, studentId }) => {
 export default StudentGrades;
 
 // Function to get the grades of the student by studentId
-const getStudentGrades = async (studentId: string) => {
+const getStudentGrades = async (studentId: number) => {
   const { data } = await axios.get(`${BACKEND_URL}/examMarks/ByStudentId`, {
     data: {
       studentId: +studentId,
@@ -69,8 +69,9 @@ const getStudentGrades = async (studentId: string) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Get the studentId from the URL
   const { studentId } = context.query;
+  const studentIdInt = parseInt(studentId as string);
 
-  const grades = await getStudentGrades(studentId as string);
+  const grades = await getStudentGrades(studentIdInt);
 
   return { props: { grades, studentId } };
 };

@@ -17,7 +17,11 @@ const UpdateUser = () => {
   const [formData, setFormData] = useState({
     username: '',
     pin: '',
+    pace: '',
   });
+  const [formPinManagementMode, setPinManagementMode] = useState<
+    `pin` | `pace` | null
+  >(null);
 
   // Use cookies
   const [cookies] = useCookies(['user']);
@@ -55,6 +59,7 @@ const UpdateUser = () => {
           setFormData({
             username: '',
             pin: '',
+            pace: '',
           });
         } else {
           toast.error('Error updating user PIN');
@@ -112,28 +117,97 @@ const UpdateUser = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
+            {/* Radio Group buttons */}
+            <div className='flex flex-col'>
               <label
-                htmlFor='pin'
-                className='mb-2 block text-sm font-medium text-gray-900 '
+                htmlFor='pinradio'
+                className='mb-2 block text-sm font-medium text-gray-900'
               >
-                New PIN
+                PIN Management
               </label>
-              <input
-                type='password'
-                name='pin'
-                id='pin'
-                placeholder='••••'
-                required
-                value={formData.pin}
-                onChange={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                  e.target.value = e.target.value.slice(0, 4);
-                  handleInputChange(e);
-                }}
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-orange-500 focus:ring-orange-500'
-              />
+              <div className='flex flex-row space-x-9'>
+                <div className='flex flex-col'>
+                  <input
+                    type='radio'
+                    name='pinmanagementradio'
+                    id='pinradio'
+                    value='pin'
+                    className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-orange-500 focus:ring-orange-500 '
+                    onChange={() => setPinManagementMode(`pin`)}
+                  />
+                  <label
+                    htmlFor='pinradiolabel'
+                    className='mb-2 block text-sm font-medium text-gray-900'
+                  >
+                    PIN
+                  </label>
+                </div>
+                <div className='flex flex-col'>
+                  <input
+                    type='radio'
+                    name='pinmanagementradio'
+                    id='paceradio'
+                    value='pace'
+                    className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-orange-500 focus:ring-orange-500 '
+                    onChange={() => setPinManagementMode(`pace`)}
+                  />
+                  <label
+                    htmlFor='paceradiolabel'
+                    className='mb-2 block text-sm font-medium text-gray-900'
+                  >
+                    PACE
+                  </label>
+                </div>
+              </div>
             </div>
+            {formPinManagementMode === 'pin' && (
+              <div>
+                <label
+                  htmlFor='pin'
+                  className='mb-2 block text-sm font-medium text-gray-900 '
+                >
+                  New PIN
+                </label>
+                <input
+                  type='password'
+                  name='pin'
+                  id='pin'
+                  placeholder='••••'
+                  required
+                  value={formData.pin}
+                  onChange={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    e.target.value = e.target.value.slice(0, 4);
+                    handleInputChange(e);
+                  }}
+                  className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-orange-500 focus:ring-orange-500'
+                />
+              </div>
+            )}{' '}
+            {formPinManagementMode === 'pace' && (
+              <div>
+                <label
+                  htmlFor='pin'
+                  className='mb-2 block text-sm font-medium text-gray-900 '
+                >
+                  New PACE/BAC
+                </label>
+                <input
+                  type='password'
+                  name='pin'
+                  id='pacepin'
+                  placeholder='••••'
+                  required
+                  value={formData.pin}
+                  onChange={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    e.target.value = e.target.value.slice(0, 4);
+                    handleInputChange(e);
+                  }}
+                  className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 placeholder-gray-300 focus:border-orange-500 focus:ring-orange-500'
+                />
+              </div>
+            )}
             <button
               type='submit'
               onClick={handleFormSubmission}

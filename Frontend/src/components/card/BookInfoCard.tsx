@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { BookMetadata } from '@/utils/libraryBooks';
+import type { BookMetadata } from '@/utils/libraryBooks';
 
 const BookInfoCard = ({ bookMetadata }: { bookMetadata: BookMetadata }) => {
   // const [book, setBook] = useState<BookMetadata | null>(null);

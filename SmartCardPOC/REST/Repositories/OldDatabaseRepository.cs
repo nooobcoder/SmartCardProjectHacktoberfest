@@ -1,8 +1,8 @@
-﻿using Npgsql;
-using REST.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Npgsql;
+using REST.Entities;
 
 namespace REST.Repositories
 {

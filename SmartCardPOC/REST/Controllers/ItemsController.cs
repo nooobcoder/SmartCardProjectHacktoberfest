@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using REST.Dtos;
-using REST.Entities;
-using REST.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using REST.Dtos;
+using REST.Entities;
+using REST.Repositories.Interfaces;
 
 namespace REST.Controllers
 {

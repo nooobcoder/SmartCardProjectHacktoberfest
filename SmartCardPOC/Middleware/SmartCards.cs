@@ -1,10 +1,10 @@
-﻿using Infineon.NGTF.Adapters;
+using System;
+using System.Collections.Generic;
+using Infineon.NGTF.Adapters;
 using Infineon.NGTF.Common;
 using Infineon.NGTF.Protocols;
 using Infineon.TestEnvironment;
 using PCSC;
-using System;
-using System.Collections.Generic;
 
 namespace Middleware
 {

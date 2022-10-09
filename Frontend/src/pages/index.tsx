@@ -47,10 +47,10 @@ export default function HomePage() {
             {cookies.user ? (
               <ButtonLink
                 className='mt-8'
-                href={HEADER_LINKS[0].href}
+                href={HEADER_LINKS[1].href}
                 variant='outline'
               >
-                {HEADER_LINKS[0].name}
+                {HEADER_LINKS[1].name}
               </ButtonLink>
             ) : (
               <ButtonLink className='mt-8' href='/auth/login' variant='outline'>

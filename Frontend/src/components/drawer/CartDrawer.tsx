@@ -3,8 +3,9 @@ import Image from 'next/image';
 import { useCookies } from 'react-cookie';
 import toast from 'react-hot-toast';
 
-import { BACKEND_URL, Book } from '@/utils/consts';
-import { BookMetadata } from '@/utils/libraryBooks';
+import type { Book, UserCookie } from '@/utils/consts';
+import { BACKEND_URL } from '@/utils/consts';
+import type { BookMetadata } from '@/utils/libraryBooks';
 
 interface CartVisibilityOptions {
   cartVisible: boolean;
@@ -31,7 +32,7 @@ const CartDrawer: React.FC<PropTypes> = ({
 }: PropTypes) => {
   // Get the user from the cookies
   const [cookies] = useCookies(['user']);
-  const user = cookies.user;
+  const user: UserCookie = cookies.user;
 
   // const memoisedGetMetadata = useMemo(() => getMetadata, []);
 
